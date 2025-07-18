@@ -1,48 +1,22 @@
-import { View, Text, Image, StyleSheet } from "react-native";
+import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
 import React from "react";
 import posts from "../../../assets/data/posts.json";
 import { formatDistanceToNowStrict } from "date-fns";
+import { ImageSourcePropType } from "react-native";
+import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
+import FontAwesome from "@expo/vector-icons/FontAwesome";
+import AntDesign from "@expo/vector-icons/AntDesign";
+import PostListItem from "../../components/PostListItem";
+import { FlatList } from "react-native";
+
 
 const HomeScreen = () => {
-  const post = posts[0];
   return (
     <View>
-      <View style={styles.conatiner}>
-        <Image
-          source={{ uri: post.group.image }}
-          style={{ width: 20, height: 20, borderRadius: 10 }}
-        />
-        <Text style={{ fontWeight: "bold" }}> {post.group.name}</Text>
-        <Text style={{ color: "grey" }}>
-          {formatDistanceToNowStrict(new Date(post.created_at))} ago
-        </Text>
-        <View style={styles.buttonContainer}>
-          <Text style={styles.button}>Join</Text>
-        </View>
-      </View>
+    <FlatList data={posts} renderItem={({item})=><PostListItem post={item}/>}/>
+
     </View>
   );
 };
 
 export default HomeScreen;
-
-const styles = StyleSheet.create({
-  conatiner: {
-    flexDirection: "row",
-    gap: 10,
-    paddingHorizontal: 15,
-  },
-
-  buttonContainer: {
-    marginLeft: "auto",
-  },
-  button: {
-    backgroundColor: "#0d469b",
-    color: "white",
-    paddingVertical: 2,
-    paddingHorizontal: 7,
-    borderRadius: 10,
-    fontWeight: "bold",
-    marginRight: 5,
-  },
-});
